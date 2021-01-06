@@ -21,7 +21,7 @@ COPY --from=openrc /sbin /sbin
 COPY --from=openrc /etc/ /etc/
 
 # Need virtio modules for networking
-COPY --from=kernel /lib/modules /lib/modules
+COPY --from=kernel /lib/modules /lib/virtualbox-guest-modules-virt
 
 # Copy kernel for later use
 COPY --from=kernel /boot/vmlinuz-virt /vmlinuz
@@ -35,7 +35,8 @@ RUN [ ! -z "$PKGS" ] && apk add --no-cache $PKGS || echo "No optional pkgs provi
 RUN rm -rf /var/cache/apk/*
 
 # Our local files
-COPY files/init /init
+COPY images/alpine3.12-simple/files/init /init
+#COPY files/init /init
 
 RUN echo "Welcome to slim!" > /etc/motd
 RUN echo "tty0::respawn:/sbin/agetty -a root -L tty0 38400 vt100" > /etc/inittab
