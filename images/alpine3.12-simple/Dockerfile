@@ -35,7 +35,7 @@ RUN [ ! -z "$PKGS" ] && apk add --no-cache $PKGS || echo "No optional pkgs provi
 RUN rm -rf /var/cache/apk/*
 
 # Our local files
-COPY ./files/init /init
+COPY files/init /init
 
 RUN echo "Welcome to slim!" > /etc/motd
 RUN echo "tty0::respawn:/sbin/agetty -a root -L tty0 38400 vt100" > /etc/inittab
